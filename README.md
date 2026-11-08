@@ -1,168 +1,46 @@
-# NAFLD Insight — Website demo khóa luận Tuần 11
+# NAFLD Insight V3 — Bản cập nhật theo đánh giá ngày 07/11/2026
 
-Ứng dụng **Streamlit** minh họa đề tài **“Dự đoán nguy cơ gan nhiễm mỡ không do rượu (NAFLD) từ dữ liệu lâm sàng đa nhóm bằng mô hình học máy”**. Website sử dụng mô hình **Fusion (b), seed 42**, cùng các artifact đã huấn luyện từ quá trình nghiên cứu NHANES 2017–2020.
+Ứng dụng Streamlit minh họa **Fusion (b), seed 42** từ 26 biến lâm sàng NHANES. Không chẩn đoán hay điều trị. Không huấn luyện lại model, không thay trọng số hoặc ngưỡng F1 OOF đã khóa. Các kết quả TEST chỉ là **bảng và hình tổng hợp có sẵn**, tuyệt đối không dự đoán lại từ TEST trong website.
 
-> **Lưu ý:** Đây là ứng dụng **minh họa nghiên cứu**, **không phải công cụ chẩn đoán y khoa**. Xác suất và ngưỡng phân loại là đầu ra của mô hình nghiên cứu, không phải đánh giá nguy cơ lâm sàng đã được xác nhận độc lập. Không nhập thông tin định danh hoặc hồ sơ bệnh nhân thật vào bản demo.
-
-## 1. Chức năng
-
-- **Tổng quan:** Giới thiệu phương pháp và kiến trúc mô hình Fusion (b).
-- **Dự đoán nguy cơ:** Nhập dữ liệu lâm sàng theo bốn nhóm đặc trưng, kiểm tra đầu vào và xem xác suất dự đoán.
-- **Giải thích SHAP:** Xem các biểu đồ giải thích **toàn cục trên tập validation** đã lưu từ Tuần 9. Các biểu đồ này **không phải giải thích riêng cho người vừa nhập dữ liệu**.
-- **Về mô hình:** Xem nguồn dữ liệu, nhóm đặc trưng, trọng số và ngưỡng phân loại đã khóa.
-
-Mô hình sử dụng **26 biến gốc** được xử lý thành **43 đặc trưng**. G1/G4 dùng dữ liệu đã chuẩn hóa; G2/G3 dùng dữ liệu chưa chuẩn hóa. Ứng dụng chỉ nạp artifact để suy luận, **không huấn luyện lại và không đọc tập TEST**.
-
-## 2. Yêu cầu hệ thống
-
-- Windows 10/11, Linux hoặc macOS.
-- **Python 3.12 hoặc 3.13** (khuyến nghị 3.13). Python **3.11 trở xuống không cài được** vì `numpy==2.5.2` và `scipy==1.18.1` yêu cầu Python ≥ 3.12. Kiểm tra bằng `py --list` (Windows) hoặc `python3 --version` (Linux/macOS); nếu chưa có, tải Python 3.13 tại https://www.python.org/downloads/ và đánh dấu *Add python.exe to PATH* khi cài.
-- Có quyền tạo môi trường ảo và cài package. **Cần internet ở lần cài đặt đầu tiên** nếu máy chưa có các gói Python; sau khi cài và có đủ artifact, ứng dụng được thiết kế để chạy cục bộ.
-
-Không cần cấu hình Google Drive, cơ sở dữ liệu hoặc API để chạy bản demo.
-
-## 3. Cấu trúc dự án
-
-```text
-KhoanLuanTotNghiep/
-├── app/
-│   └── app.py                 # Giao diện Streamlit
-├── src/
-│   ├── __init__.py
-│   └── inference.py           # Tiền xử lý và dự đoán Fusion (b)
-├── artifacts/
-│   ├── models/                # 4 mô hình G1–G4 seed42 (.joblib)
-│   ├── preprocessor.joblib
-│   ├── groups.json
-│   ├── weights.json
-│   ├── thresholds.json
-│   └── manifest.json          # SHA256 của artifact ML
-├── resource/
-│   ├── figures/               # Các hình minh họa/SHAP Tuần 9
-│   └── *.csv                  # Tên biến, SHAP và bảng báo cáo
-├── tests/                     # Pytest và dữ liệu đối chiếu VAL
-├── docs/                      # Tài liệu và mã tham khảo
-├── .streamlit/config.toml     # Cấu hình giao diện
-├── requirements.txt
-└── README.md
-```
-
-**Quan trọng:** Chạy lệnh tại **thư mục gốc của repository** (thư mục chứa `requirements.txt`, `app/`, `src/` và `artifacts/`). Không chuyển riêng `app.py` mà không giữ nguyên các thư mục phụ thuộc.
-
-## 4. Tải mã nguồn
-
-Clone repository hoặc tải ZIP từ GitHub rồi giải nén:
-
-```bash
-git clone https://github.com/HoaiNam765/KhoanLuanTotNghiep.git
-cd KhoanLuanTotNghiep
-```
-
-> Nếu tải ZIP từ GitHub, mở terminal tại thư mục `KhoanLuanTotNghiep` vừa giải nén thay vì chạy `git clone`.
-
-## 5. Cài đặt và chạy trên Windows
-
-### 5.1. CMD
-
-Mở **Command Prompt** tại thư mục gốc dự án:
-
-```cmd
-py -3.13 -m venv .venv
-.venv\Scripts\activate
-python -m pip install --upgrade pip
-python -m pip install -r requirements.txt
-python -m pytest -q tests
-python -m streamlit run app/app.py
-```
-
-Nếu máy có Python 3.12 thay vì 3.13, thay `-3.13` bằng `-3.12`. Dùng `py --list` để xem các phiên bản có sẵn (phải là 3.12 trở lên).
-
-### 5.2. PowerShell
+## Cài đặt và chạy (Python 3.13)
 
 ```powershell
 py -3.13 -m venv .venv
-.\.venv\Scripts\Activate.ps1
-python -m pip install --upgrade pip
-python -m pip install -r requirements.txt
-python -m pytest -q tests
-python -m streamlit run app/app.py
-```
-
-Nếu PowerShell chặn script kích hoạt, có thể dùng CMD như phần 5.1 hoặc **không kích hoạt** và gọi trực tiếp Python trong môi trường ảo:
-
-```powershell
 .\.venv\Scripts\python.exe -m pip install -r requirements.txt
 .\.venv\Scripts\python.exe -m pytest -q tests
 .\.venv\Scripts\python.exe -m streamlit run app/app.py
 ```
 
-**Không cần xóa/cài lại Python hệ thống** chỉ để kích hoạt `.venv`.
+Không cần kích hoạt môi trường ảo; gọi trực tiếp Python trong `.venv` giúp tránh lỗi ExecutionPolicy của PowerShell. Để chạy riêng các bài AppTest (cần cài đúng Streamlit trong `requirements.txt`):
 
-## 6. Cài đặt và chạy trên Linux/macOS
-
-Mở terminal tại thư mục gốc dự án:
-
-```bash
-python3 -m venv .venv
-source .venv/bin/activate
-python -m pip install --upgrade pip
-python -m pip install -r requirements.txt
-python -m pytest -q tests
-python -m streamlit run app/app.py
+```powershell
+$env:RUN_APPTEST='1'
+.\.venv\Scripts\python.exe -m pytest -q tests/test_streamlit_apptest_smoke.py
+Remove-Item Env:RUN_APPTEST
 ```
 
-Nếu hệ điều hành thiếu module `venv`, hãy cài gói hỗ trợ môi trường ảo theo hướng dẫn của hệ điều hành trước khi tiếp tục.
+Truy cập http://localhost:8501 . Khi chạy AppTest, chỉ bật `RUN_APPTEST=1` cho lệnh kiểm thử giao diện rồi xóa biến môi trường sau khi chạy. Không chạy `docs/tham_khao_app_tuan11/nafld_du_doan.py`.
 
-## 7. Sử dụng chương trình
+## Giao diện hiện tại
 
-Sau khi chạy `streamlit`, mở địa chỉ do terminal hiển thị (thông thường là **http://localhost:8501**).
+- **Giới thiệu**: phạm vi CAP >= 302 dB/m, nguồn dữ liệu và giới hạn lâm sàng.
+- **Dự đoán**: nhập tay hoặc CSV tối đa 100 dòng; có 3 trường bắt buộc (tuổi/giới tính/nhóm dân tộc NHANES), các danh mục bệnh nền/lối sống có thể chọn “Không rõ”. Số đo thiếu để trống (không gõ 0). Dấu phẩy hoặc chấm là dấu thập phân, không dùng dấu ngăn cách hàng nghìn; chuỗi số mơ hồ dạng `1,200`/`1.200` ở các trường có thể vượt 999 sẽ bị yêu cầu nhập lại. BMI/vòng eo/vòng mông ngoài khoảng quan sát TRAIN cần xác nhận trước khi dự đoán.
+- **Kết quả**: nhãn trên/dưới ngưỡng F1 OOF 33,16%; cảnh báo đơn vị, phạm vi TRAIN và số đo thiếu được hiển thị trước xác suất; giải thích Shapley xấp xỉ từ 12 mẫu VAL lưu trong `artifacts/`.
+- **Nghiên cứu**: kết quả TRAIN CV, OOF, VAL, TEST (chỉ bảng tổng hợp đã lưu), kiến trúc Fusion, ablation, SHAP.
+- Hình logo/cover/research cố định tại `app/assets/`; không có nút tải ảnh giao diện.
 
-1. Chọn **Tổng quan** để xem mục tiêu và kiến trúc nghiên cứu.
-2. Chọn **Dự đoán nguy cơ**, điền các giá trị lâm sàng đang có vào biểu mẫu theo nhóm. Các ô số để trống được xử lý theo logic giá trị thiếu của pipeline, **không được xem là số đo trung vị thực tế**. Chỉ nhập các giá trị đã biết, đúng đơn vị hiển thị.
-3. Chọn một trong ba **chế độ ngưỡng**:
-   - **F1 OOF**: ngưỡng tối ưu F1 đã khóa, mặc định.
-   - **0,5 cố định**: mốc so sánh xác suất.
-   - **Recall ≥ 0,80 OOF**: ngưỡng xác định trước từ dự đoán ngoài fold trên TRAIN.
-4. Nhấn **Phân tích nguy cơ**. Ứng dụng hiển thị xác suất, ngưỡng đang áp dụng và phân loại **đạt/vượt ngưỡng** hoặc **dưới ngưỡng**.
-5. Chọn **Giải thích SHAP** để xem kết quả giải thích toàn cục từ Tuần 9; chọn **Về mô hình** để xem cấu hình nghiên cứu.
+## Bảo vệ nghiên cứu
 
-> Ba ngưỡng là **ngưỡng thống kê của mô hình**, không phải ba mức phân tầng bệnh lý. Cùng một xác suất có thể cho phân loại khác nhau khi đổi ngưỡng.
+`artifacts/manifest.json` chứa SHA256 cho 5 joblib, 3 JSON cấu hình và 12 mẫu VAL tham chiếu. Những tệp này bị thay đổi phải cập nhật đúng nguồn có thẩm quyền; **không chỉnh thủ công trọng số/ngưỡng rồi tạo lại manifest**. Dữ liệu form/CSV không lưu xuống ổ đĩa hoặc thêm vào tập nghiên cứu. Khả năng tổng quát sang người Việt Nam chưa được xác thực.
 
-## 8. Kiểm thử trước khi demo
+`artifacts/thresholds.json` chỉ chứa các ngưỡng Fusion (b), các ngưỡng nghiên cứu khác đã bị loại khỏi gói vì bị ghi sai ở bản web cũ; giá trị Fusion (b) seed 42–46 giữ nguyên. Những cảnh báo biên hợp lý trong giao diện là bảo vệ nhập liệu, không phải giới hạn/khuyến cáo lâm sàng.
 
-Chạy từ thư mục gốc sau khi đã kích hoạt `.venv`:
+## Kiểm thử và tài liệu
 
-```bash
-python -m pytest -q tests
-```
+- `docs/FIX_V2_20261103.md` — biên bản sửa V2 ban đầu.
+- `docs/FIX_V3_20261107.md` — các điều chỉnh và kết quả kiểm tra theo đánh giá V3 ngày 07/11/2026.
+- `docs/07_DANH_GIA_WEB_V3.md` — báo cáo đánh giá gốc.
+- `tests/TEST_PLAN_15.md` — danh sách nghiệm thu UI cập nhật.
+- `resource/research/` — kết quả đã lưu và mô tả nguồn, trong đó có bảng tổng hợp TEST từ tuần 9.
 
-Bộ `tests/test_inference.py` kiểm tra tính toàn vẹn artifact, cấu trúc 43 đặc trưng, cờ thiếu dữ liệu, dự đoán đối chiếu với **fixture validation** và các ngưỡng. Kết quả mong đợi khi môi trường và artifact phù hợp là **4 bài kiểm thử PASS**; đây **không phải** xác nhận 15/15 bài test giao diện.
-
-Kế hoạch kiểm thử giao diện ở [`tests/TEST_PLAN_15.md`](tests/TEST_PLAN_15.md). Để nghiệm thu Tuần 11, cần hoàn thành và lưu bằng chứng **15/15 luồng UI**, kiểm tra cài đặt ở máy khác và đo thời gian dự đoán **dưới 5 giây** trên máy thử.
-
-## 9. Các lỗi thường gặp
-
-| Hiện tượng | Nguyên nhân thường gặp | Hướng xử lý |
-|---|---|---|
-| `No module named pytest` | Đang dùng Python ngoài `.venv` hoặc chưa cài dependencies | Kích hoạt `.venv`, chạy `python -m pip install -r requirements.txt`; kiểm tra `where python` (Windows) hoặc `which python` (Linux/macOS) |
-| `No module named streamlit` | Streamlit chưa được cài trong môi trường đang chạy | Dùng chính `python` của `.venv` để cài `requirements.txt` |
-| `No suitable Python runtime found` | Lệnh `py -3.xx` không khớp Python đã cài | Chạy `py --list`, chọn phiên bản có sẵn và tương thích |
-| `Artifact thiếu hoặc khác SHA256` | Thiếu/hỏng file model hoặc manifest không đúng bộ artifact | Đối chiếu `artifacts/manifest.json` và các tệp `.joblib` với bản phát hành; **không tắt kiểm tra SHA256** để ép chạy |
-| `ModuleNotFoundError: src` | Chạy từ sai thư mục hoặc di chuyển thư mục nguồn | Chạy `python -m streamlit run app/app.py` từ gốc repository |
-| Lỗi khi nạp `.joblib` | Khác phiên bản thư viện hoặc artifact không tương thích | Dùng môi trường đúng `requirements.txt`, không ghi đè model nghiên cứu |
-| Cổng 8501 bận | Đang có Streamlit khác chạy | Dừng phiên trước bằng `Ctrl+C` hoặc chạy `python -m streamlit run app/app.py --server.port 8502` |
-
-## 10. Chạy offline và quản lý dữ liệu
-
-- Sau khi cài dependencies và tải đầy đủ artifact, website chạy **cục bộ**, không cần gọi API dự đoán bên ngoài.
-- Giao diện không cần Google Drive; model và bảng SHAP đã được đặt trong thư mục dự án.
-- Không sao chép dữ liệu TEST vào ứng dụng và không dùng TEST để thử website.
-- Không sử dụng dữ liệu nhận dạng cá nhân hoặc hồ sơ y tế thật trong demo.
-- Không commit `.venv/`, file bí mật hoặc dữ liệu nhạy cảm lên GitHub.
-- Khi cần dừng ứng dụng, nhấn **`Ctrl+C`** trong terminal. Khi chạy lại, chỉ cần kích hoạt `.venv` và gọi Streamlit, **không cần cài lại dependencies mỗi lần**.
-
-## 11. Nguồn nghiên cứu và giới hạn
-
-Website tham chiếu các mô hình đã huấn luyện và khóa từ Tuần 7–8, cùng biểu đồ giải thích trên tập validation của Tuần 9. Bộ dự đoán được triển khai để **minh họa quy trình suy luận**, không có chức năng tạo nhãn bệnh, huấn luyện mô hình mới hoặc chẩn đoán lâm sàng.
-
-Các hình SHAP trên trang giải thích là **thống kê toàn cục của nghiên cứu**, không được diễn giải thành bằng chứng riêng cho ca nhập liệu hiện tại.
+**Kết quả TEST không chứng minh Fusion (b) tốt hơn LightGBM gộp:** trung bình 5 seed, AUPRC TEST lần lượt 0,6881 và 0,6910. Fusion (b) vẫn là mô hình minh họa chính vì cấu trúc dễ diễn giải theo nhóm.
