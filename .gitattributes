@@ -2,3 +2,5 @@
 *.png binary
 *.jpg binary
 *.jpeg binary
+artifacts/*.json -text
+artifacts/*.csv -text

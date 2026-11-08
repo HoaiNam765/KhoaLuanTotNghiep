@@ -1,0 +1,7 @@
+Mô hình,Phiên bản,AUPRC (mean ± SD),AUROC (mean ± SD),AUROC trên train,Chênh train – CV
+Logistic Regression,Tham số tuần 5,"0,6922 ± 0,0306","0,8614 ± 0,0094","0,8693","0,0079"
+Logistic Regression,Sau tinh chỉnh,"0,6924 ± 0,0309","0,8614 ± 0,0095","0,8693","0,0080"
+Random Forest,Tham số tuần 5,"0,6958 ± 0,0238","0,8568 ± 0,0076","1,0000","0,1432"
+Random Forest,Sau tinh chỉnh,"0,7020 ± 0,0295","0,8588 ± 0,0079","0,9930","0,1341"
+LightGBM,Tham số tuần 5,"0,6815 ± 0,0192","0,8489 ± 0,0105","1,0000","0,1511"
+LightGBM,Sau tinh chỉnh,"0,7062 ± 0,0284","0,8645 ± 0,0105","0,9386","0,0741"

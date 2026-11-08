@@ -1,0 +1,24 @@
+﻿muc,validation,test,ghi_chu
+Số người,1004.0,1004.0,
+Số NAFLD,275.0,275.0,
+Tỷ lệ NAFLD,0.2739043824701195,0.2739043824701195,
+CAP trung vị (dB/m),263.0,261.5,
+Tỷ lệ CAP trong 274–330,0.2928286852589641,0.2679282868525896,
+Thiếu dữ liệu trung bình G1,0.0217878486055776,0.0250249003984063,"giá trị gốc, chưa điền thiếu"
+Thiếu dữ liệu trung bình G2,0.0602589641434263,0.0687250996015936,"giá trị gốc, chưa điền thiếu"
+Thiếu dữ liệu trung bình G3,0.0026560424966799,0.0026560424966799,"giá trị gốc, chưa điền thiếu"
+Thiếu dữ liệu trung bình G4,0.0291690381331815,0.0318725099601593,"giá trị gốc, chưa điền thiếu"
+Khác biệt chuẩn hóa lớn nhất của biến G1–G4 (val − test),0.0825819975280688,,LBXSGTSI
+AUPRC LR gộp (5 seed),0.6449592380533704,0.6727867002307526,test − val = +0.0278
+AUPRC LightGBM gộp (5 seed),0.6509367584208491,0.6910388226979306,test − val = +0.0401
+AUPRC Fusion (b) (5 seed),0.6794808665953986,0.6881105256632306,test − val = +0.0086
+AUPRC Fusion (a) (5 seed),0.6638455687203149,0.6698099182720011,test − val = +0.0060
+AUPRC Stacking (5 seed),0.6806111572157216,0.6892432807921126,test − val = +0.0086
+AUPRC G1 đứng riêng (5 seed),0.6341923042819937,0.6366450892402642,test − val = +0.0025
+AUPRC G2 đứng riêng (5 seed),0.576880614233594,0.5556972417724843,test − val = -0.0212
+AUPRC G3 đứng riêng (5 seed),0.4283602011574378,0.4018216342162813,test − val = -0.0265
+AUPRC G4 đứng riêng (5 seed),0.3656993880868717,0.3746759955543015,test − val = +0.0090
+Tỷ trọng SHAP nhóm G1 — Fusion (b) (%),70.23195469899755,,chỉ tính trên validation (không đọc lại test)
+Tỷ trọng SHAP nhóm G2 — Fusion (b) (%),29.768045301002452,,chỉ tính trên validation (không đọc lại test)
+Tỷ trọng SHAP nhóm G3 — Fusion (b) (%),4.734153312389222e-16,,chỉ tính trên validation (không đọc lại test)
+Tỷ trọng SHAP nhóm G4 — Fusion (b) (%),1.5469800215992149e-15,,chỉ tính trên validation (không đọc lại test)

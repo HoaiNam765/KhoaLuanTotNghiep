@@ -4,8 +4,12 @@
     "artifacts/models/G1_LogisticRegression_seed42.joblib": "356099f527f60747b231a5379b10a225e125a66fc6abe5d2160adfb4e119d22c",
     "artifacts/models/G2_LightGBM_seed42.joblib": "82ba1631b4c03c9299866a709cc2eb20096d07fcb04deef778a63428ff8e35de",
     "artifacts/models/G3_LightGBM_seed42.joblib": "553aae619b7a7d8776e17ca4e4352aa6ada6e9f3292f3bee0a5bfa70a31e1228",
-    "artifacts/models/G4_LogisticRegression_seed42.joblib": "31ec8bc77cfc5774115be675157cd7463ce4ab240bee0e67d4e24d0fdad40cfb"
+    "artifacts/models/G4_LogisticRegression_seed42.joblib": "31ec8bc77cfc5774115be675157cd7463ce4ab240bee0e67d4e24d0fdad40cfb",
+    "artifacts/groups.json": "606f0bc32651f5e9d230eb71dd6540b902f8a532dd2c737434b9568b3beae21d",
+    "artifacts/weights.json": "9d363152d18f3401aba3433800cc94d91b0e9e86d48453243d3271ff7f44ad07",
+    "artifacts/thresholds.json": "46168db467cd458b7beaa33ea49c08a7445e9727535b4f36c05d6aa82c3a3c4e",
+    "artifacts/local_explain_background_val12.csv": "cbd59a25f2c04023cfa4b00bb0dad61af571de9f1dd97a8bb4cc336e1e8cf32c"
   },
   "source": "Original research artifacts supplied by user; models seed42 only",
-  "note": "Binary joblib artifacts only. JSON configuration is validated by runtime semantics; no text files hashed to avoid Git EOL differences."
+  "note": "Manifest khóa 5 joblib + 3 JSON cấu hình + 12 mẫu VAL tham chiếu. Không thay đổi model/trọng số/ngưỡng."
 }
