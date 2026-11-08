@@ -2,7 +2,7 @@
 
 Ứng dụng Streamlit minh họa **Fusion (b), seed 42** từ 26 biến lâm sàng NHANES. Không chẩn đoán hay điều trị. Không huấn luyện lại model, không thay trọng số hoặc ngưỡng F1 OOF đã khóa. Các kết quả TEST chỉ là **bảng và hình tổng hợp có sẵn**, tuyệt đối không dự đoán lại từ TEST trong website.
 
-## Cài đặt và chạy (Python 3.12)
+## Cài đặt và chạy (Python 3.13)
 
 ```powershell
 py -3.13 -m venv .venv
