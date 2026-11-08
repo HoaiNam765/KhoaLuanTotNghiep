@@ -1,8 +1,16 @@
 [theme]
-primaryColor="#2563EB"
-backgroundColor="#F8FAFC"
+primaryColor="#176A72"
+backgroundColor="#F7F8F6"
 secondaryBackgroundColor="#FFFFFF"
-textColor="#0F172A"
+textColor="#1B3137"
 font="sans serif"
+
 [browser]
 gatherUsageStats=false
+
+[client]
+showErrorDetails = "none"
+toolbarMode = "viewer"
+
+[server]
+maxUploadSize = 1

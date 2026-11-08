@@ -1,0 +1,4 @@
+Kiem thu Python: 65 passed, 1 skipped (AppTest requires RUN_APPTEST=1), 6 warnings (versions scikit-learn 1.8.0 vs 1.9.0).
+total 1004 ok 1004 blocked 0 max_abs_diff 3.3306690738754696e-16 changed 0 seconds 13.85
+first errors: []
+first changed []

@@ -1,0 +1,7 @@
+﻿Mô hình,AUPRC OOF,Ghi chú
+LR (tuần 6),0.6867,1 OOF (seed 42)
+LightGBM (tuần 6),0.7023,1 OOF (seed 42)
+Fusion (a),0.691,"trung bình 5 seed (SD 0,0009)"
+Fusion (b),0.706,"trung bình 5 seed (SD 0,0011); trọng số học trên chính OOF"
+Fusion (b) học chéo fold,0.7059,"trung bình 5 seed (SD 0,0011); không lạc quan"
+Stacking,0.7092,"trung bình 5 seed (SD 0,0009); OOF chéo fold"
