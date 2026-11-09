@@ -45,6 +45,27 @@ def test_unambiguous_decimal_values_remain_supported():
     assert case['LBXSATSI'] == pytest.approx(1.2)
     assert case['DR1TKCAL'] == pytest.approx(1800)
 
+
+@pytest.mark.parametrize('code,text,expected', [
+    ('DR1TSFAT', '39.178', 39.178), ('DR1TSFAT', '4,802', 4.802),
+    ('DR1TSUGR', '90.965', 90.965), ('DR1TFIBE', '14.300', 14.3),
+])
+def test_nhanes_gram_values_with_three_decimals_are_accepted(code, text, expected):
+    # NHANES ghi khẩu phần (gam) tới 3 chữ số lẻ; đây là số thập phân, không phải dấu hàng nghìn.
+    case = validate_case({**EXAMPLE_A, code: text})
+    assert case[code] == pytest.approx(expected)
+    assert predict_case(case)['probability'] == pytest.approx(0.594926546959962, abs=1e-12)
+
+
+def test_csv_row_with_three_decimal_saturated_fat_is_valid():
+    lines = csv_template().decode('utf-8-sig').splitlines()
+    header = lines[0].split(',')
+    row = lines[1].split(',')
+    row[header.index('DR1TSFAT')] = '24.344'
+    parsed = parse_csv_bytes('\n'.join([lines[0], ','.join(row)]).encode('utf8'))
+    assert parsed.errors == {}
+    assert parsed.rows[0]['DR1TSFAT'] == pytest.approx(24.344)
+
 def test_reserved_survey_codes_treated_as_missing_not_9999_minutes():
     assert validate_case({**EXAMPLE_A,'PAD680':'7777'})['PAD680'] is None
     assert validate_case({**EXAMPLE_A,'PAD680':'9999'})['PAD680'] is None

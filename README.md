@@ -2,10 +2,12 @@
 
 Ứng dụng Streamlit minh họa **Fusion (b), seed 42** từ 26 biến lâm sàng NHANES. Không chẩn đoán hay điều trị. Không huấn luyện lại model, không thay trọng số hoặc ngưỡng F1 OOF đã khóa. Các kết quả TEST chỉ là **bảng và hình tổng hợp có sẵn**, tuyệt đối không dự đoán lại từ TEST trong website.
 
-## Cài đặt và chạy (Python 3.13)
+## Cài đặt và chạy (Python 3.12)
+
+Môi trường đã kiểm đủ (test, AppTest, tái lập 1.004 ca VAL) là Python 3.12.10, như ghi ở đầu `requirements.txt`. Các gói ghim trong `requirements.txt` cũng có bản cài sẵn cho Python 3.13, nhưng nên dùng 3.12 khi chạy demo và khi deploy.
 
 ```powershell
-py -3.13 -m venv .venv
+py -3.12 -m venv .venv
 .\.venv\Scripts\python.exe -m pip install -r requirements.txt
 .\.venv\Scripts\python.exe -m pytest -q tests
 .\.venv\Scripts\python.exe -m streamlit run app/app.py

@@ -10,7 +10,7 @@ Trạng thái: **CHƯA ĐÁNH DẤU PASS UI** trên trình duyệt Windows. Bả
 | T04 | Thiếu huyết áp | Tham số fit trên TRAIN, cờ `BPXOSY1_was_missing` đúng; kết quả có ghi cảnh báo thiếu |
 | T05 | Thiếu khẩu phần | Cờ `diet_recall_missing` đúng; hiển thị cảnh báo số phép đo còn thiếu |
 | T06 | Biên nhập tay | Tuổi 17/81, BMI 0/345, vòng eo 1,12/11200, HA 80/140, HbA1c 61, ngồi 2000: CHẶN, báo tiếng Việt; 7777/9999 của phút ngồi → thiếu. BMI/eo/mông ngoài khoảng TRAIN nhưng trong hard limit phải yêu cầu xác nhận trước khi dự đoán. |
-| T07 | Nhập dấu thập phân | 34,5 và 34.5 đều như nhau; chuỗi có dạng phân nhóm hàng nghìn như `1,200` hoặc `1.200` ở mọi trường số có giới hạn trên >999 phải yêu cầu nhập lại rõ ràng. |
+| T07 | Nhập dấu thập phân | 34,5 và 34.5 đều như nhau; chuỗi có dạng phân nhóm hàng nghìn như `1,200` hoặc `1.200` ở mọi trường số có giới hạn trên >999 phải yêu cầu nhập lại rõ ràng, trừ 3 biến khẩu phần tính bằng gam (đường, chất béo bão hòa, chất xơ): `39.178` g chất béo bão hòa như dữ liệu NHANES phải được nhận là 39,178. |
 | T08 | Mã danh mục | Giới tính 1/2 khớp; 5 danh mục G3/G4 có “Không rõ” và backend nhận None; mã lạ vẫn chặn |
 | T09 | Khớp mô hình | Đúng 26 biến → 43 cột cùng thứ tự, không retrain, trọng số và ngưỡng seed 42 giữ nguyên |
 | T10 | VAL regression | Dùng dữ liệu VAL nghiên cứu khi có sẵn, so xác suất với bản gốc; các ca hợp lệ giữ chênh ≤ 1e-10, ghi rõ trường hợp bị UI chặn/cảnh báo |
