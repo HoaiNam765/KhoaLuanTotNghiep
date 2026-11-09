@@ -107,7 +107,7 @@ div[class*="st-key-nav_"] button:focus-visible{outline:3px solid #b38935!importa
 div[class*="st-key-nav_active_"] button{background:var(--accent-soft)!important;border:1.8px solid var(--accent)!important;color:#12545b!important;box-shadow:inset 0 -3px var(--accent)!important}
 div[class*="st-key-nav_"] button [data-testid="stIconMaterial"],div[class*="st-key-nav_"] button .material-symbols-rounded{font-size:1.5rem!important;line-height:1.25}
 .hero-panel{background:#edf4f1;border:1px solid #d9e7e2;border-radius:20px;padding:28px 30px;margin:16px 0 24px}
-.hero-title{font-size:clamp(1.85rem,3.5vw,2.65rem);font-weight:760;line-height:1.22;letter-spacing:-.04em;color:var(--ink);max-width:650px;margin:6px 0 11px}
+.hero-title{font-size:clamp(1.6rem,2.6vw,2.3rem);font-weight:760;line-height:1.22;letter-spacing:-.04em;color:var(--ink);max-width:650px;margin:6px 0 11px}
 .hero-desc{font-size:1.03rem;line-height:1.75;color:var(--muted);max-width:650px}
 .hero-tag{color:#176a72;font-weight:740;font-size:.76rem;text-transform:uppercase;letter-spacing:.1em}
 .instruction-box{border:1px solid var(--line);background:#fff;border-radius:13px;padding:19px;margin-bottom:15px}
@@ -117,7 +117,7 @@ div[class*="st-key-nav_"] button [data-testid="stIconMaterial"],div[class*="st-k
 [data-testid="stFileUploader"] section{background:#fbfcfb;border:1px dashed #b9d0c9;border-radius:10px}
 /* Balanced cards and stable top alignment on desktop. */
 .hero-panel,.hero-aside{box-sizing:border-box;min-height:286px;height:286px;margin:9px 0 18px;display:flex;flex-direction:column;justify-content:center}
-.hero-panel{background:#edf4f1;padding:30px 34px}
+.hero-panel{background:#edf4f1;padding:30px 34px;height:auto}
 .hero-aside{border:1px solid var(--line);border-radius:20px;background:#fff;padding:26px 28px}
 .hero-aside h3{margin:12px 0 8px!important;font-size:1.24rem!important}
 .hero-aside p{margin:6px 0 8px;font-size:.95rem;line-height:1.65;color:var(--muted)}

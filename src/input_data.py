@@ -108,10 +108,15 @@ HARD_LIMITS = {
     'DR1TKCAL':(0,30000), 'DR1TSUGR':(0,10000), 'DR1TSFAT':(0,10000), 'DR1TFIBE':(0,10000),
 }
 CORE_BODY_CODES = ('BMXBMI', 'BMXWAIST', 'BMXHIP')
+# Khẩu phần tính bằng gam: NHANES ghi tới 3 chữ số lẻ (ví dụ 39.178 g chất béo bão hòa)
+# và giá trị lớn nhất trong TRAIN đều dưới 1.000 g, nên 3 biến này không thuộc diện nghi
+# dấu phân cách hàng nghìn.
+DECIMAL_GRAM_CODES = frozenset({'DR1TSUGR', 'DR1TSFAT', 'DR1TFIBE'})
 # Fields whose valid technical range can exceed 999: reject ambiguous grouped
 # strings such as 1,200 or 1.200; users must type 1200 or a clear decimal.
 AMBIGUOUS_THOUSANDS_FIELDS = frozenset(
-    code for code, (_, upper) in HARD_LIMITS.items() if upper > 999
+    code for code, (_, upper) in HARD_LIMITS.items()
+    if upper > 999 and code not in DECIMAL_GRAM_CODES
 )
 
 FIELD_NAMES = {
